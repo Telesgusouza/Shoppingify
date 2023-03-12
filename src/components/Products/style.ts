@@ -108,16 +108,21 @@ export const ContainerOptionsMerchandise = styled.section`
     display: flex;
     justify-content: space-between;
 
-    padding: 13px 16px;
+    padding: 13px 17px;
 
     background-color: white;
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
 
     cursor: pointer;
+    position: relative;
   }
 
   img {
+    position: absolute;
+    top: 15px;
+    right: 14px;
+
     width: 12px;
     rotate: 45deg;
   }

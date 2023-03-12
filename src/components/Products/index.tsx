@@ -1,73 +1,173 @@
-import  searchImg from '../../assets/icons/search.svg';
-import xmarkImg from '../../assets/icons/xmark.svg';
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import * as Styled from './style';
+import actionsType from "../../actions";
+
+import searchImg from "../../assets/icons/search.svg";
+import xmarkImg from "../../assets/icons/xmark.svg";
+import { addItem, getDataProducts } from "../../firebase/Firestore";
+
+import {
+  IPropsDataListProducts,
+  IPropsDataProduct,
+  IPropsReducer,
+} from "../../interfaces";
+
+import * as Styled from "./style";
 
 export default function Products() {
+  const [dataProducts, setDataProducts] = useState<
+    IPropsDataListProducts[] | []
+  >([]);
+  const [quantItem, setQuantItem] = useState<number>(0);
 
-    return (
-        <Styled.Container>
-            <Styled.Header>
-                <h1> <strong> Shoppingify </strong> permite que você leve sua lista de compras aonde quer que você vá</h1>
-                <form>
-                    <button>
-                        <img src={searchImg} alt="imagem de search" />
-                    </button>
-                    <input type="text" name="inputSearch" id="inputSearch" placeholder='Pesquisar' />
-                </form>
-            </Styled.Header>
+  const keyItem = useRef("");
 
-            <Styled.ContainerOptionsMerchandise>
+  const { listCar } = useSelector(
+    (rootReducer: IPropsReducer) => rootReducer.useShoppingCart
+  );
 
-                <article>
-                    <h2>Frutas e vegetais</h2>
-                    <ul>
-                        <li><p>Avocado</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Banana</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Bunch of carrots 5pcs</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Chicken 1kg</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Avocado</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Banana</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Bunch of carrots 5pcs</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Chicken 1kg</p> <img src={xmarkImg} alt="Option" /></li>
-                    </ul>
-                </article>
+  const dispatch = useDispatch();
 
-                <article>
-                    <h2>Frutas e vegetais</h2>
-                    <ul>
-                        <li><p>Avocado</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Banana</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Bunch of carrots 5pcs</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Chicken 1kg</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Avocado</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Banana</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Bunch of carrots 5pcs</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Chicken 1kg</p> <img src={xmarkImg} alt="Option" /></li>
-                    </ul>
-                </article>
+  useEffect(() => {
+    async function getProducts() {
+      const getData = await getDataProducts();
+      setDataProducts(getData);
+    }
 
-                <article>
-                    <h2>Frutas e vegetais</h2>
-                    <ul>
-                        <li><p>Avocado</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Banana</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Bunch of carrots 5pcs</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Chicken 1kg</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Avocado</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Banana</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Bunch of carrots 5pcs</p> <img src={xmarkImg} alt="Option" /></li>
-                        <li><p>Chicken 1kg</p> <img src={xmarkImg} alt="Option" /></li>
-                    </ul>
-                </article>
+    getProducts();
+  }, []);
 
-                {/* <Styled.ListMerchandise>
-                    
-                </Styled.ListMerchandise> */}
+  function addItemCar(item: IPropsDataProduct, category: string) {
+    interface IPropsListData {
+      category: string;
+      products: {
+        key: string;
+        product: string;
+        quant: number;
+        originalQuant: number;
+      }[];
+    }
 
-            </Styled.ContainerOptionsMerchandise>
+    const listData: IPropsListData[] = listCar;
 
+    const ObjExist = listData.find((obj) => obj.category === category);
+    let saveItemExist = false;
 
-        </Styled.Container>
-    )
+    listData.forEach((element) => {
+      const itemExist = element.products.find(
+        (obj: {
+          product: string;
+          quant: number;
+          key: string;
+          originalQuant: number;
+        }) => obj.product === item.product
+      );
+      saveItemExist = !!itemExist;
+
+      // categoria existe e acrescenta
+      if (element.category === category) {
+        // item existe
+        if (saveItemExist) {
+          element.products.forEach(
+            (itemCar: {
+              product: string;
+              quant: number;
+              key: string;
+              originalQuant: number;
+            }) => {
+              if (itemCar.product === item.product) {
+                if (itemCar.quant < itemCar.originalQuant) {
+                  itemCar.quant++;
+                  element.products[element.products.indexOf(itemCar)] = itemCar;
+                }
+              }
+            }
+          );
+
+          // item não existe
+        } else {
+          if (item.quant > 0) {
+            const dataItem = {
+              key: item.key,
+              product: item.product,
+              quant: 1,
+              originalQuant: item.quant,
+            };
+            element.products.push(dataItem);
+          }
+        }
+      }
+    });
+
+    // a categoria não existe
+
+    const data = [
+      {
+        key: item.key,
+        product: item.product,
+        quant: 1,
+        originalQuant: item.quant,
+      },
+    ];
+
+    if (!!!ObjExist) {
+      const newData = {
+        category: category,
+        products: data,
+      };
+
+      listData.push(newData);
+    }
+
+    dispatch({
+      type: actionsType.addItemCar,
+      payload: listData,
+    });
+  }
+
+  return (
+    <Styled.Container>
+      <Styled.Header>
+        <h1>
+          {" "}
+          <strong> Shoppingify </strong> permite que você leve sua lista de
+          compras aonde quer que você vá
+        </h1>
+        <form>
+          <button>
+            <img src={searchImg} alt="imagem de search" />
+          </button>
+          <input
+            type="text"
+            name="inputSearch"
+            id="inputSearch"
+            placeholder="Pesquisar"
+          />
+        </form>
+      </Styled.Header>
+
+      <Styled.ContainerOptionsMerchandise>
+        {dataProducts.length > 0 ? (
+          dataProducts.map((prod) => (
+            <article key={prod.category}>
+              <h2>{prod.category}</h2>
+              <ul>
+                {prod.listData.map((item) => (
+                  <li
+                    key={item.key}
+                    onClick={() => addItemCar(item, prod.category)}
+                  >
+                    <p>{item.product}</p> <img src={xmarkImg} alt="Option" />
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))
+        ) : (
+          <h2>carregando informações</h2>
+        )}
+      </Styled.ContainerOptionsMerchandise>
+    </Styled.Container>
+  );
 }

@@ -1,54 +1,55 @@
-import { collection, DocumentData, getDocs } from "firebase/firestore";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { collection, DocumentData, getDocs, setDoc } from "firebase/firestore";
 import { IPropsDataProduct } from "../../interfaces";
-import { db } from "../firebase";
-
+import { auth, db } from "../firebase";
 
 export async function getDataProducts() {
   const docRefCategory = collection(db, "/listProducts/listCategory/list");
+  const CateSnap = await getDocs(docRefCategory);
 
-  await getDocs(docRefCategory).then(async (CateSnap) => {
-    const listProducts: { category: string; listData: Array<any> }[] = [];
-    const lengthCategory = CateSnap.docChanges().length;
+  const listProducts: { category: string; listData: IPropsDataProduct[] }[] =
+    [];
 
-    CateSnap.docChanges().forEach(async (element: any) => {
-      const commodityCategory =
-        element.doc._document.data.value.mapValue.fields.category.stringValue;
+  for (const element of CateSnap.docChanges()) {
+    const commodityCategory = element.doc.data().category;
+    const docRef = collection(db, `/listProducts/list/${commodityCategory}`);
+    const docSnap = await getDocs(docRef);
+    let listData: IPropsDataProduct[] = [];
 
-      const docRef = collection(db, `/listProducts/list/${commodityCategory}`);
+    docSnap.docChanges().forEach((element: DocumentData) => {
+      const getFields = element.doc.data();
+      const getKeyField = element.doc._key?.path?.segments[8];
 
-      await getDocs(docRef).then((docSnap) => {
-        let listData: IPropsDataProduct[] = [];
-
-        docSnap.docChanges().forEach((element: DocumentData) => {
-          const getFields = element.doc.data.value.mapValue.fields;
-          const getKeyField = element.doc.key.path.segments[8];
-
-          const data: IPropsDataProduct = {
-            product: getFields.product.stringValue,
-            quant: getFields.quant.integerValue,
-            value: getFields.value.doubleValue,
-
-            key: getKeyField,
-          };
-
-          listData.push(data);
-        });
-
-        const data: {
-          category: string;
-          listData: IPropsDataProduct[];
-        } = {
-          category: commodityCategory,
-          listData,
+      if (getFields && getKeyField) {
+        const data: IPropsDataProduct = {
+          product: getFields.product,
+          quant: getFields.quant,
+          value: getFields.value,
+          key: getKeyField,
         };
 
-        listProducts.push(data);
-      });
-
-      if (listProducts.length === lengthCategory) {
-        console.log(listProducts);
-        return listProducts;
+        listData.push(data);
       }
     });
+
+    const data: {
+      category: string;
+      listData: IPropsDataProduct[];
+    } = {
+      category: commodityCategory,
+      listData,
+    };
+
+    listProducts.push(data);
+  }
+  return listProducts;
+}
+
+export async function addItem(key: string) {
+  onAuthStateChanged(auth, (user: User | null) => {
+    if (user !== null) {
+      const uid = user.uid;
+      // setDoc(doc(db, `ShoppingCart/${user.uid}`), {avocado: "hummmm"});
+    }
   });
 }
