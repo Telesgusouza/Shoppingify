@@ -1,14 +1,20 @@
 import styled from "styled-components";
 
 interface Props {
-  borderLi: boolean;
+  borderLi?: boolean;
+  dpToggle?: boolean;
 }
 
 export const Container = styled.menu`
-  background-color: white;
+  position: relative;
 
-  width: 100%;
+  min-width: 90px;
   max-width: 90px;
+
+  @media (max-width: 500px) {
+    min-width: 50px;
+    max-width: 50px;
+  }
 `;
 
 export const ContainerMenu = styled.div`
@@ -25,6 +31,10 @@ export const ContainerMenu = styled.div`
   justify-content: space-between;
 
   flex-direction: column;
+
+  @media (max-width: 500px) {
+    max-width: 50px;
+  }
 `;
 
 export const FirstIcone = styled.img`
@@ -32,6 +42,10 @@ export const FirstIcone = styled.img`
   max-width: 50px;
   margin: 0 auto;
   margin-top: 24px;
+
+  @media (max-width: 500px) {
+    width: 70%;
+  }
 `;
 
 export const NavPages = styled.nav`
@@ -50,9 +64,12 @@ export const LiPages = styled.li<Props>`
     ${(props) => (props.borderLi ? "#f9a109" : "transparent")};
   height: 45px;
 
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  position: relative;
 
   cursor: pointer;
 
@@ -66,13 +83,16 @@ export const LiPages = styled.li<Props>`
     opacity: 0;
 
     position: absolute;
-    right: -30px;
+    left: 85%;
+
 
     padding: 3px 10px;
     background-color: #454545;
     color: white;
 
     font-size: 0.82rem;
+
+    white-space: nowrap;
 
     transition: opacity 0.2s ease;
 
@@ -91,6 +111,12 @@ export const LiPages = styled.li<Props>`
 
   img {
     width: 20px;
+  }
+
+  @media (max-width: 500px) {
+    img {
+      width: 17px;
+    }
   }
 `;
 
@@ -118,7 +144,7 @@ export const IconShoppingCart = styled.div`
   div {
     position: absolute;
     top: -7px;
-    right: -7px;
+    left: 25px;
 
     background-color: #eb5757;
     color: white;
@@ -127,5 +153,14 @@ export const IconShoppingCart = styled.div`
     border-radius: 4px;
 
     font-size: 12px;
+  }
+
+  @media (max-width: 500px) {
+    height: 30px;
+    width: 30px;
+
+    img {
+      max-width: 15px;
+    }
   }
 `;

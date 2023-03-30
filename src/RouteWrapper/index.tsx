@@ -6,12 +6,12 @@ import { auth } from "../firebase/firebase";
 
 interface IPropsRouteWrapper {
   children: React.ReactNode;
-  isPrivate: boolean;
+  isPrivate?: boolean;
 }
 
 export default function RouteWrapper({
   children,
-  isPrivate,
+  isPrivate = true,
 }: IPropsRouteWrapper) {
   const navigate = useNavigate();
 

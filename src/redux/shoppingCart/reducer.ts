@@ -1,9 +1,10 @@
-import {
-  IPropsActionShoppingCart,
-  IPropsStateShoppingCart,
-} from "../../interfaces";
+import { IPropsActionShoppingCart } from "../../interfaces";
 
-import actionsType from '../../actions';
+import actionsType from "../../actions";
+import { async } from "@firebase/util";
+
+
+// console.log(data);
 
 interface IPropsListData {
   category: string;
@@ -14,18 +15,15 @@ interface IPropsListData {
 }
 
 interface IPropsListCar {
-  listCar: IPropsListData[] | []
+  listCar: IPropsListData[] | [];
 }
 
-// const initialState: IPropsListCar[] = {
-//   listCar: [],
-// };
 const initialState: IPropsListCar = {
   listCar: [],
 };
 
 const useShoppingCart = (
-  state: IPropsListCar = initialState, //  IPropsStateShoppingCart
+  state: IPropsListCar = initialState,
   action: IPropsActionShoppingCart
 ) => {
   if (action.type === actionsType.addItemCar) {

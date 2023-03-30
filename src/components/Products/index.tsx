@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import actionsType from "../../actions";
 
 import searchImg from "../../assets/icons/search.svg";
 import xmarkImg from "../../assets/icons/xmark.svg";
-import { addItem, getDataProducts } from "../../firebase/Firestore";
+import { getDataProducts, setListData } from "../../firebase/Firestore";
 
 import {
   IPropsDataListProducts,
@@ -20,8 +20,9 @@ export default function Products() {
     IPropsDataListProducts[] | []
   >([]);
   const [quantItem, setQuantItem] = useState<number>(0);
+  const [inputSearch, setInputSearch] = useState<string>("");
 
-  const keyItem = useRef("");
+  const [listItens, setListItens] = useState<any[]>([]);
 
   const { listCar } = useSelector(
     (rootReducer: IPropsReducer) => rootReducer.useShoppingCart
@@ -120,10 +121,42 @@ export default function Products() {
       listData.push(newData);
     }
 
+
     dispatch({
       type: actionsType.addItemCar,
       payload: listData,
     });
+
+    setListData();
+  }
+
+  function handleInputSearch(e: ChangeEvent<HTMLInputElement>) {
+    setInputSearch(e.target.value);
+
+    const listArray: any = [];
+
+    dataProducts.forEach((element) => {
+      element.listData.forEach((item) => {
+        if (
+          item.product
+            .toLocaleLowerCase()
+            .includes(inputSearch.toLocaleLowerCase())
+        ) {
+          const data = {
+            category: element.category,
+            data: item,
+          };
+
+          listArray.push(data);
+        }
+      });
+
+      setListItens(listArray);
+    });
+
+    if (e.target.value === "") {
+      setListItens([]);
+    }
   }
 
   return (
@@ -140,6 +173,8 @@ export default function Products() {
           </button>
           <input
             type="text"
+            onChange={(e) => handleInputSearch(e)}
+            value={inputSearch}
             name="inputSearch"
             id="inputSearch"
             placeholder="Pesquisar"
@@ -148,8 +183,22 @@ export default function Products() {
       </Styled.Header>
 
       <Styled.ContainerOptionsMerchandise>
-        {dataProducts.length > 0 ? (
-          dataProducts.map((prod) => (
+        {listItens.length > 0 ? (
+          <article>
+            <ul>
+              {listItens.map((resp) => (
+                <li
+                  key={resp.data.key}
+                  onClick={() => addItemCar(resp.data, resp.category)}
+                >
+                  <p>{resp.data.product}</p> <img src={xmarkImg} alt="Option" />
+                </li>
+              ))}
+            </ul>
+          </article>
+        ) : (<> 
+        {inputSearch === "" ?
+          (dataProducts.map((prod) => (
             <article key={prod.category}>
               <h2>{prod.category}</h2>
               <ul>
@@ -163,10 +212,9 @@ export default function Products() {
                 ))}
               </ul>
             </article>
-          ))
-        ) : (
-          <h2>carregando informações</h2>
-        )}
+          ))) : (<h2>Produto não encontrado....</h2>)}
+          </>)}
+
       </Styled.ContainerOptionsMerchandise>
     </Styled.Container>
   );

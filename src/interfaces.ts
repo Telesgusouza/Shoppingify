@@ -1,7 +1,5 @@
-
-
 export interface IPropsOptionMenus {
-  page: "inicialpage" | "history" | "estátics";
+  page: "inicialpage" | "history" | "estátics" | "";
 }
 
 export interface IPropsDataProduct {
@@ -9,6 +7,14 @@ export interface IPropsDataProduct {
   quant: number;
   value: number;
   key: string;
+}
+
+export interface getListDoc {
+  description: string;
+  quant: number;
+  product: string;
+  value: number;
+  key?: string;
 }
 
 export interface IPropsDataListProducts {
@@ -30,11 +36,11 @@ export interface IPropsData {
       key: string;
       product: string;
       quant: number;
-      originalQuant: number
+      originalQuant: number;
     }
   ];
 }
-///    IPropsDataProduct[] | IPropsDataListProducts[] | 
+///    IPropsDataProduct[] | IPropsDataListProducts[] |
 export interface IPropsReducer {
   useShoppingCart: { listCar: IPropsData[] | [] };
 }
@@ -60,6 +66,28 @@ export interface IPropsListCar {
   listCar: IPropsListData[];
 }
 
-const initialState: IPropsListCar = {
-  listCar: [],
-};
+export interface IPropsLateralMenu {
+  toggleMenu: "SEE_LIST_MENU" | "SEE_PRODUCT_MENU";
+  getKey?: string;
+}
+
+export interface IPropsPayment {
+  togglePayment: boolean;
+}
+
+export interface IActionLateralMenu {
+  type: string;
+  payload: "SEE_LIST_MENU" | "SEE_PRODUCT_MENU";
+  payloadGetKey?: string;
+}
+
+export interface IPropsRootReducer {
+  useShoppingCart: IPropsReducer;
+  useToggleLateralMenu: IPropsLateralMenu;
+  togglePaymentMethod: IPropsPayment;
+}
+
+export interface IActionPayment {
+  type: string;
+  payload: boolean;
+}
