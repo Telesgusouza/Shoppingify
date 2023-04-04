@@ -138,9 +138,10 @@ export const HeaderModification = styled.div`
     color: white;
     padding: 4px 7px;
 
-    /* border-radius: 4px; */
     border-end-end-radius: 6px;
     border-top-right-radius: 6px;
+
+    cursor: pointer;
   }
 `;
 

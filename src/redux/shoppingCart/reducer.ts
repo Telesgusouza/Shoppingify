@@ -1,10 +1,6 @@
 import { IPropsActionShoppingCart } from "../../interfaces";
 
 import actionsType from "../../actions";
-import { async } from "@firebase/util";
-
-
-// console.log(data);
 
 interface IPropsListData {
   category: string;

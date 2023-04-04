@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getListCar } from "../firebase/Firestore";
+import GetInfoProduct from "../pages/GetInfoProduct";
 import History from "../pages/History";
 import InitialPage from "../pages/InitialPage";
 import Logout from "../pages/Logout";
@@ -62,6 +63,14 @@ function App() {
             <RouteWrapper>
               {" "}
               <Statistcs />{" "}
+            </RouteWrapper>
+          }
+        />{" "}
+        <Route
+          path="/InfoProduct/:key"
+          element={
+            <RouteWrapper>
+              <GetInfoProduct />
             </RouteWrapper>
           }
         />

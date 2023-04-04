@@ -8,11 +8,18 @@ import {
   getDocs,
   setDoc,
 } from "firebase/firestore";
-import { getListDoc, IPropsDataProduct } from "../../interfaces";
+import {
+  getListDoc,
+  IPropsArrayData,
+  IPropsDataList,
+  IPropsDataProduct,
+  IPropsProduct,
+} from "../../interfaces";
 import { auth, db } from "../firebase";
 
 import store from "../../redux/stoge";
 import actionType from "../../actions";
+import { Params } from "react-router-dom";
 
 export async function getDataProducts() {
   const docRefCategory = collection(db, "/listProducts/listCategory/list");
@@ -147,7 +154,7 @@ export async function handleTotalValue(): Promise<number> {
       const listData = data.data().listData;
 
       for (const resp of listData) {
-        const promises = resp.products.map((quantItem: any) => {
+        const promises = resp.products.map((quantItem: DocumentData) => {
           return getDoc(
             doc(db, `/listProducts/list/${resp.category}/${quantItem.key}`)
           ).then((getData: DocumentData) => {
@@ -160,7 +167,7 @@ export async function handleTotalValue(): Promise<number> {
 
         const itemsData = await Promise.all(promises);
 
-        itemsData.forEach((data: any) => {
+        itemsData.forEach((data: DocumentData) => {
           valueData += data.quant * data.value;
         });
       }
@@ -209,7 +216,7 @@ async function setHistory(uid: string) {
 
   const data = {
     listData: getData.data().listData,
-    date: `${getDay}/${getMounth}/${getYear}`,
+    date: date.toLocaleString("pt-br"),
   };
 
   addDoc(collection(db, `/listProducts/listHistory/${uid}`), data);
@@ -233,4 +240,78 @@ export async function getListCar() {
       store.dispatch({ type: actionType.addItemCar, payload: data.listData });
     }
   }
+}
+
+export async function getListHistory() {
+  const user = await new Promise<User | null>((resolve) => {
+    onAuthStateChanged(auth, (user) => {
+      resolve(user);
+    });
+  });
+
+  if (user !== null) {
+    const listData = await getDocs(
+      collection(db, `/listProducts/listHistory/${user.uid}`)
+    );
+
+    const arrayData: IPropsArrayData[] = [];
+
+    listData.docChanges().forEach((element: DocumentData) => {
+      const field = element.doc._document.data.value.mapValue.fields;
+
+      if (field.listData.arrayValue.values !== undefined) {
+        const dataList: IPropsDataList[] = [];
+        field.listData.arrayValue.values.forEach((arrayField: DocumentData) => {
+          const arrayProducts: IPropsProduct[] = [];
+
+          arrayField.mapValue.fields.products.arrayValue.values.forEach(
+            (itemProduct: DocumentData) => {
+              arrayProducts.push({
+                key: itemProduct.mapValue.fields.key.stringValue,
+                originalQuant:
+                  itemProduct.mapValue.fields.originalQuant.integerValue,
+                product: itemProduct.mapValue.fields.product.stringValue,
+                quant: itemProduct.mapValue.fields.quant.integerValue,
+              });
+            }
+          );
+
+          dataList.push({
+            category: arrayField.mapValue.fields.category.stringValue,
+            products: arrayProducts,
+          });
+        });
+
+        const data = {
+          key: element.doc._key.path.segments[8],
+          date: field.date.stringValue,
+          dataList: dataList,
+        };
+
+        arrayData.push(data);
+      }
+    });
+
+    return arrayData;
+  }
+}
+
+export async function getProductList(key: Readonly<Params<string>> | undefined | string) {
+  const user = await new Promise<User | null>((resolve) => {
+    onAuthStateChanged(auth, user => {
+      resolve(user);
+    })
+  })
+
+  if(user !== null) {
+    const getData: DocumentData = await getDoc(doc(db, `/listProducts/listHistory/${user.uid}/${key}`))
+    const data = {
+      key: getData._key.path.segments[3],
+      date: getData.data().date,
+      listData: getData.data().listData
+    }
+
+    return data
+  }
+
 }

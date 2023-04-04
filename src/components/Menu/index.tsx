@@ -77,9 +77,9 @@ export default function Menu({ page }: IPropsOptionMenus) {
               <div>Histórico</div>
             </Styled.LiPages>
 
-            <Styled.LiPages borderLi={page === "estátics"} onClick={() => handleNavigate({ pathname: `/statistcs` })} >
+            <Styled.LiPages borderLi={page === "statistics"} onClick={() => handleNavigate({ pathname: `/statistcs` })} >
               <img src={graphicImg} alt="" />
-              <div>EStaticas</div>
+              <div>Estaticas</div>
             </Styled.LiPages>
           </ul>
         </Styled.NavPages>

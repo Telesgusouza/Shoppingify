@@ -5,5 +5,6 @@ export default {
     seeListMenu: "SEE_LIST_MENU",
     seeProductMenu:"SEE_PRODUCT_MENU",
 
-    togglwBoxPayment:"TOGGLEBOXPAYMENT"
+    togglwBoxPayment:"TOGGLEBOXPAYMENT",
+    infoProduct: "INFOPRODUCT"
 }

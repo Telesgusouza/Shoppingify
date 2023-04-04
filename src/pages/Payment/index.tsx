@@ -3,10 +3,14 @@ import * as Styled from "./style";
 
 import Menu from "../../components/Menu";
 import { useDispatch, useSelector } from "react-redux";
-import { getListDoc, IPropsReducer } from "../../interfaces";
+import { getListDoc, IPropsArrayData } from "../../interfaces";
 import { useEffect, useState } from "react";
 import { getListData, handleTotalValue } from "../../firebase/Firestore";
 import PaymentMethod from "../../components/PaymentMethod";
+
+export interface IPropsReducer {
+  useShoppingCart: { listCar: IPropsArrayData[] | [] };
+}
 
 export default function Payment() {
   const { listCar } = useSelector(

@@ -21,7 +21,6 @@ export default function ListItemsMenu() {
   const [searchInput, setSearchInput] = useState<string>("");
   const [listProducts, setListProducts] = useState<IPropsItemMenu[]>([]);
 
-  const [listName, setListName] = useState<string>("Shopping lista");
   const [listNameToggle, setListNameToggle] = useState<boolean>(true);
 
   const { listCar } = useSelector(
@@ -155,13 +154,13 @@ export default function ListItemsMenu() {
     setListData();
   }
 
-  function handleEditNameList() {
-    setListNameToggle(true);
-  }
+  
 
-  function handleInputEditName() {
-    
-  }
+  // function handleInputEditName() {
+  //   if (listName !== "") {
+
+  //   };
+  // }
 
   return (
     <Styled.Container>
@@ -172,18 +171,8 @@ export default function ListItemsMenu() {
           <button>Add item</button>
         </div>
       </Styled.BtnoptionAddItem> */}
-      <Styled.HeaderModification onClick={handleEditNameList}>
-        {listNameToggle ? (
-          <label htmlFor="input de modificar titulo">
-            <input type="text" value={listName} onChange={e => setListName(e.target.value)} placeholder="Escolha um nome" />
-            <button onClick={handleInputEditName} >save</button>
-          </label>
-        ) : (
-          <>
-            <h3> {listName} </h3>
-            <img src={penImg} alt="icone de um lapis" />
-          </>
-        )}
+      <Styled.HeaderModification>
+        <h3> Shopping lista </h3>
       </Styled.HeaderModification>
 
       {listCar.length === 0 && (

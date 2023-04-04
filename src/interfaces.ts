@@ -1,5 +1,5 @@
 export interface IPropsOptionMenus {
-  page: "inicialpage" | "history" | "estátics" | "";
+  page: "inicialpage" | "history" | "statistics" | "";
 }
 
 export interface IPropsDataProduct {
@@ -85,9 +85,34 @@ export interface IPropsRootReducer {
   useShoppingCart: IPropsReducer;
   useToggleLateralMenu: IPropsLateralMenu;
   togglePaymentMethod: IPropsPayment;
+  useInfoProduct: IPropsArrayData
 }
 
 export interface IActionPayment {
   type: string;
   payload: boolean;
+}
+
+export interface IPropsProduct {
+  key: string;
+  originalQuant: number;
+  product: string;
+  quant: number;
+}
+
+export interface IPropsDataList {
+  category: string;
+  products: IPropsProduct[];
+}
+
+export interface IPropsArrayData {
+  key: string
+  date: string;
+  dataList: IPropsDataList[];
+}
+
+export interface IPropsGetArrayData {
+  key: string
+  date: string;
+  listData: IPropsDataList[];
 }
