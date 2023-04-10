@@ -21,6 +21,12 @@ import store from "../../redux/stoge";
 import actionType from "../../actions";
 import { Params } from "react-router-dom";
 
+interface IPropsData {
+  product: string;
+  initialValue: number;
+  porcent: number;
+}
+
 export async function getDataProducts() {
   const docRefCategory = collection(db, "/listProducts/listCategory/list");
   const CateSnap = await getDocs(docRefCategory);
@@ -296,22 +302,195 @@ export async function getListHistory() {
   }
 }
 
-export async function getProductList(key: Readonly<Params<string>> | undefined | string) {
+export async function getProductList(
+  key: Readonly<Params<string>> | undefined | string
+) {
   const user = await new Promise<User | null>((resolve) => {
-    onAuthStateChanged(auth, user => {
+    onAuthStateChanged(auth, (user) => {
       resolve(user);
-    })
-  })
+    });
+  });
 
-  if(user !== null) {
-    const getData: DocumentData = await getDoc(doc(db, `/listProducts/listHistory/${user.uid}/${key}`))
+  if (user !== null) {
+    const getData: DocumentData = await getDoc(
+      doc(db, `/listProducts/listHistory/${user.uid}/${key}`)
+    );
     const data = {
       key: getData._key.path.segments[3],
       date: getData.data().date,
-      listData: getData.data().listData
-    }
+      listData: getData.data().listData,
+    };
 
-    return data
+    return data;
   }
+}
 
+export async function getInfoGraficData() {
+  const user = await new Promise<User | null>((resolve) => {
+    onAuthStateChanged(auth, (user) => {
+      resolve(user);
+    });
+  });
+
+  if (user !== null) {
+    const getData = await getDocs(
+      collection(db, `/listProducts/listHistory/${user.uid}`)
+    );
+
+    const promises = getData.docChanges().map(async (element: DocumentData) => {
+      const fieldsHistory = element.doc.data();
+
+      let fullValueCar: number = 0;
+      let promises: Promise<any>[] = [];
+
+      fieldsHistory.listData.forEach((itemForCategory: DocumentData) => {
+        itemForCategory.products.forEach((itemProduct: DocumentData) => {
+          const promise = getDoc(
+            doc(
+              db,
+              `/listProducts/list/${itemForCategory.category}/${itemProduct.key}`
+            )
+          ).then((getValueData: DocumentData) => {
+            fullValueCar += itemProduct.quant * getValueData.data().value;
+          });
+          promises.push(promise);
+        });
+      });
+
+      await Promise.all(promises);
+
+      const data = {
+        date: fieldsHistory.date,
+        totalValue: fullValueCar.toFixed(2),
+      };
+
+      return data;
+    });
+
+    return Promise.all(promises);
+  }
+}
+
+export async function getTopProducts() {
+  const user = await new Promise<User | null>((resolve) => {
+    onAuthStateChanged(auth, (user) => {
+      resolve(user);
+    });
+  });
+
+  if (user !== null) {
+    const getData = await getDocs(
+      collection(db, `/listProducts/listHistory/${user.uid}`)
+    );
+
+    const arrayItens: any[] = [];
+
+    getData.docChanges().forEach((productsData) => {
+      const product = productsData.doc.data();
+
+      const productsCount: any = {};
+      product.listData.forEach((data: DocumentData) => {
+        data.products.forEach((product: DocumentData) => {
+          if (product.product in productsCount) {
+            productsCount[product.product] += 1;
+          } else {
+            productsCount[product.product] = 1;
+          }
+        });
+      });
+
+      arrayItens.push(productsCount);
+    });
+
+    const counts: {
+      [key: string]: number;
+    } = {};
+    arrayItens.forEach((object) => {
+      Object.entries(object).forEach(([key, value]: any) => {
+        if (key in counts) {
+          counts[key] += value;
+        } else {
+          counts[key] = value;
+        }
+      });
+    });
+
+    const topProdutos = Object.fromEntries(
+      Object.entries(counts)
+        .sort((a: any, b: any) => b[1] - a[1])
+        .slice(0, 3)
+    );
+
+    const totalCount = { totalCount: 0 };
+
+    Object.keys(counts).forEach((key) => {
+      totalCount.totalCount += counts[key];
+    });
+
+    const data: IPropsData[] = [];
+
+    Object.entries(topProdutos).forEach(([key, value]: any) => {
+      const porcent = ((value * 100) / totalCount.totalCount).toFixed(0);
+      data.push({
+        product: key,
+        initialValue: Number(value),
+        porcent: Number(porcent),
+      });
+    });
+
+    return data;
+  }
+}
+
+export async function geTopCategory() {
+  const user = await new Promise<User | null>((result) => {
+    onAuthStateChanged(auth, (user) => {
+      result(user);
+    });
+  });
+
+  if (user !== null) {
+    const getDataDocChanges = await getDocs(
+      collection(db, `/listProducts/listHistory/${user.uid}`)
+    );
+    const count: {
+      [key: string]: number;
+    } = {};
+
+    getDataDocChanges.docChanges().forEach((element) => {
+      const products = element.doc.data();
+      products.listData.forEach((item: DocumentData) => {
+        if (count[item.category] === undefined) {
+          count[item.category] = 1;
+        } else {
+          count[item.category] += 1;
+        }
+      });
+    });
+
+    const totalCount = { totalCount: 0 };
+
+    Object.keys(count).forEach((key) => {
+      totalCount.totalCount += count[key];
+    });
+
+    const topProdutos = Object.fromEntries(
+      Object.entries(count)
+        .sort((a: any, b: any) => b[1] - a[1])
+        .slice(0, 3)
+    );
+
+    const data: IPropsData[] = [];
+
+    Object.entries(topProdutos).forEach(([key, value]: any) => {
+      const porcent = ((value * 100) / totalCount.totalCount).toFixed(0);
+      data.push({
+        product: key,
+        initialValue: Number(value),
+        porcent: Number(porcent),
+      });
+    });
+
+    return data;
+  }
 }

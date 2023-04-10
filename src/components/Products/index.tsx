@@ -56,7 +56,6 @@ export default function Products() {
     let saveItemExist = false;
 
     listData.forEach((element) => {
-      console.log(listData)
       const itemExist = element.products.find(
         (obj: {
           product: string;

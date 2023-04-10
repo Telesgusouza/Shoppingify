@@ -40,7 +40,62 @@ export interface IPropsData {
     }
   ];
 }
-///    IPropsDataProduct[] | IPropsDataListProducts[] |
+
+export interface ChartData {
+  name: string;
+  data: number[];
+}
+
+export interface ApexOptions {
+  chart: {
+    type:
+      | "area"
+      | "candlestick"
+      | "line"
+      | "bar"
+      | "pie"
+      | "donut"
+      | "radialBar"
+      | "scatter"
+      | "bubble"
+      | "heatmap"
+      | "treemap"
+      | "boxPlot"
+      | "radar"
+      | "polarArea"
+      | "rangeBar"
+      | "rangeArea";
+    height: number;
+    zoom: {
+      enabled: boolean;
+    };
+  };
+  dataLabels: {
+    enabled: boolean;
+  };
+  stroke: {
+    curve: "straight";
+  };
+  title: {
+    text: string;
+    align: "left";
+  };
+  subtitle: {
+    text: string;
+    align: "left";
+  };
+  labels: string[];
+  xaxis: {
+    type: "datetime";
+  };
+  yaxis: {
+    opposite: boolean;
+  };
+  legend: {
+    horizontalAlign: "left";
+  };
+}
+
 export interface IPropsReducer {
   useShoppingCart: { listCar: IPropsData[] | [] };
 }
@@ -85,7 +140,7 @@ export interface IPropsRootReducer {
   useShoppingCart: IPropsReducer;
   useToggleLateralMenu: IPropsLateralMenu;
   togglePaymentMethod: IPropsPayment;
-  useInfoProduct: IPropsArrayData
+  useInfoProduct: IPropsArrayData;
 }
 
 export interface IActionPayment {
@@ -106,13 +161,24 @@ export interface IPropsDataList {
 }
 
 export interface IPropsArrayData {
-  key: string
+  key: string;
   date: string;
   dataList: IPropsDataList[];
 }
 
 export interface IPropsGetArrayData {
-  key: string
+  key: string;
   date: string;
   listData: IPropsDataList[];
+}
+
+
+
+
+
+
+export interface IPropsData {
+  product: string;
+  initialValue: number;
+  porcent: number;
 }
