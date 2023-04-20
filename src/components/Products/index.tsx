@@ -121,7 +121,6 @@ export default function Products() {
       listData.push(newData);
     }
 
-
     dispatch({
       type: actionsType.addItemCar,
       payload: listData,
@@ -196,25 +195,30 @@ export default function Products() {
               ))}
             </ul>
           </article>
-        ) : (<> 
-        {inputSearch === "" ?
-          (dataProducts.map((prod) => (
-            <article key={prod.category}>
-              <h2>{prod.category}</h2>
-              <ul>
-                {prod.listData.map((item) => (
-                  <li
-                    key={item.key}
-                    onClick={() => addItemCar(item, prod.category)}
-                  >
-                    <p>{item.product}</p> <img src={xmarkImg} alt="Option" />
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))) : (<h2>Produto não encontrado....</h2>)}
-          </>)}
-
+        ) : (
+          <>
+            {inputSearch === "" ? (
+              dataProducts.map((prod) => (
+                <article key={prod.category}>
+                  <h2>{prod.category}</h2>
+                  <ul>
+                    {prod.listData.map((item) => (
+                      <li
+                        key={item.key}
+                        onClick={() => addItemCar(item, prod.category)}
+                      >
+                        <p>{item.product}</p>{" "}
+                        <img src={xmarkImg} alt="Option" />
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))
+            ) : (
+              <h2>Produto não encontrado....</h2>
+            )}
+          </>
+        )}
       </Styled.ContainerOptionsMerchandise>
     </Styled.Container>
   );

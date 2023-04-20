@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getItem } from "../../firebase/Firestore";
 import { toast } from "react-toastify";
+import { DocumentData } from "firebase/firestore";
 
 interface IPropsProduct {
   value: number;
@@ -18,7 +19,7 @@ interface IPropsProduct {
 }
 
 export default function SeeItemMenu() {
-  const [product, setProduct] = useState<IPropsProduct>({});
+  const [product, setProduct] = useState<DocumentData>({});
   const [category, setCategory] = useState<string>("");
   const [valueProd, setValueProd] = useState<string>("");
   const dispatch = useDispatch();
@@ -107,7 +108,6 @@ export default function SeeItemMenu() {
       }
     });
   }
-
 
   return (
     <Styled.Container>

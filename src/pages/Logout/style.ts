@@ -5,7 +5,7 @@ export const Contaier = styled.div`
 
   width: 100%;
   height: 100vh;
-  padding: 10px;
+  padding: 30px 10px;
 
   display: flex;
   justify-content: center;
@@ -91,6 +91,62 @@ export const FormContainer = styled.form`
   }
 `;
 
+export const InputPhoto = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    border: none;
+    width: fit-content;
+    border-radius: 0;
+    padding: 0;
+    cursor: pointer;
+
+    &:focus {
+      border: none;
+    }
+  }
+`;
+
+export const PhotoUser = styled.div`
+  height: 100px !important;
+
+  position: relative;
+
+  img {
+    position: relative;
+    left: -12px;
+
+    z-index: 2;
+
+    width: 100px !important;
+    height: 100px !important;
+
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(150, 150, 150, 0.8);
+    border-radius: 50%;
+  }
+
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+
+    width: 100px !important ;
+    height: 100px;
+
+    border: 0;
+    border-radius: 50%;
+
+    /* display: none; */
+    opacity: 0;
+
+    cursor: pointer;
+  }
+`;
+
 export const ContaierSocialMidia = styled.div`
   display: flex;
   flex-direction: column;
@@ -133,7 +189,7 @@ export const ContaierSocialMidia = styled.div`
 
   strong {
     cursor: pointer;
-    color: #2D9CDB;
+    color: #2d9cdb;
   }
 
   @media (max-width: 226px) {

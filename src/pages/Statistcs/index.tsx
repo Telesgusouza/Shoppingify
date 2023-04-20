@@ -31,18 +31,19 @@ export default function Statistcs() {
     getPorcents();
   }, []);
 
-  console.log(topCategorys);
 
   return (
     <Styled.Container>
       <Menu page="statistics" />
       <Styled.ContainerContent>
+        {topProducts.length === 0 && <strong>Não há itens no histórico</strong>}
+
         <Styled.ContainerStatistics>
           <ul>
             <h2> Top Items </h2>
 
             {topProducts.map((resp) => (
-              <li>
+              <li key={resp.product}>
                 <div>
                   <p>{resp.product}</p> <span>{resp.porcent}%</span>
                 </div>
@@ -55,7 +56,7 @@ export default function Statistcs() {
             <h2>Top Categoria </h2>
 
             {topCategorys.map((resp) => (
-              <li>
+              <li key={resp.product}>
                 <div>
                   <p>{resp.product}</p> <span>{resp.porcent}%</span>
                 </div>
@@ -65,13 +66,7 @@ export default function Statistcs() {
           </ul>
         </Styled.ContainerStatistics>
 
-        {/* 
-        
-        ATENÇÃO ADICIONAR UM TOGGLE TIPO DESSES Q TEM NA LATERAL
-        
-        */}
-
-        <Styled.Chart>
+        <Styled.Chart itensNo>
           <div>
             <Chart />
           </div>

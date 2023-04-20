@@ -5,6 +5,7 @@ export const Container = styled.main`
   max-width: 900px;
   padding: 25px 40px;
   margin: 0 auto;
+
 `;
 
 export const Header = styled.header`
@@ -109,6 +110,7 @@ export const ContainerOptionsMerchandise = styled.section`
     justify-content: space-between;
 
     padding: 13px 17px;
+    padding-right: 30px;
 
     background-color: white;
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.05);
@@ -120,8 +122,8 @@ export const ContainerOptionsMerchandise = styled.section`
 
   img {
     position: absolute;
-    top: 15px;
-    right: 14px;
+    top: 10px;
+    right: 10px;
 
     width: 12px;
     rotate: 45deg;

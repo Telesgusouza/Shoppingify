@@ -17,7 +17,6 @@ export const ContainerContent = styled.main`
   grid-template-columns: 1fr;
   grid-gap: 40px;
 
-
   h1 {
     font-size: 1.63rem;
     font-weight: 700;
@@ -27,13 +26,8 @@ export const ContainerContent = styled.main`
   }
 
   h2 {
-    font-size: 12px;
-    font-size: 0.9rem;
-    font-weight: 500;
-
-    margin-bottom: 15px;
+    font-size: 18px;
   }
-
 
   strong {
     font-size: 1rem;

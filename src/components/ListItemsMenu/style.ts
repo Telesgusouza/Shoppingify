@@ -100,7 +100,6 @@ export const HeaderModification = styled.div`
   display: flex;
   justify-content: space-between;
 
-
   margin-top: 30px;
 
   cursor: pointer;
@@ -122,7 +121,7 @@ export const HeaderModification = styled.div`
   input {
     width: 100%;
     padding: 4px 15px;
-    border: 2px solid #F9A109;
+    border: 2px solid #f9a109;
 
     border-top-left-radius: 6px;
     border-end-start-radius: 6px;
@@ -133,7 +132,7 @@ export const HeaderModification = styled.div`
   }
 
   button {
-    background-color: #F9A109;
+    background-color: #f9a109;
     border: none;
     color: white;
     padding: 4px 7px;
@@ -257,6 +256,8 @@ export const EditProductCart = styled.div`
 `;
 
 export const Edit = styled.div`
+  // aqui
+
   display: none;
 
   position: absolute;

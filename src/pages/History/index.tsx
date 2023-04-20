@@ -30,14 +30,14 @@ export default function History() {
   }, []);
 
   function handleGetInfo(info: IPropsArrayData) {
-    console.log(info);
-
     dispatch({
       type: actionsType.infoProduct,
       payload: info,
     });
     navigate("/InfoProduct/" + info.key);
   }
+
+  console.log(listData.length === 0);
 
   return (
     <Styled.Container>
@@ -46,10 +46,14 @@ export default function History() {
       <Styled.ContainerContent>
         <h1>Shoppinging Histórico</h1>
 
+        {listData.length === 0 && (
+          <h2>Histórico vazio...</h2>
+        )}
+
         <ul>
           {listData.length > 0 &&
             listData.map((product) => (
-              <li onClick={() => handleGetInfo(product)}>
+              <li key={product.key} onClick={() => handleGetInfo(product)}>
                 <div>
                   <img src={dateImg} alt="icone de data" />
                   <strong>{product.date.slice(0, 17)}</strong>

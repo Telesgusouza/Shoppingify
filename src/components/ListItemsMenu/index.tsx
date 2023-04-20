@@ -6,15 +6,11 @@ import { IPropsData, IPropsItemMenu, IPropsReducer } from "../../interfaces";
 
 import * as Styled from "./style";
 
-import bottle from "../../assets/shoppingify-master/source.svg";
-import penImg from "../../assets/icons/pen.svg";
-
 import trashImg from "../../assets/icons/trash.svg";
 import multiImg from "../../assets/icons/xmarkYe.svg";
 import minusImg from "../../assets/icons/minusYe.svg";
 
 import undrawShopping from "../../assets/shoppingify-master/undraw_shopping_app_flsj 1.svg";
-import { Div } from "../../pages/InitialPage/style";
 import { setListData } from "../../firebase/Firestore";
 
 export default function ListItemsMenu() {
@@ -154,23 +150,8 @@ export default function ListItemsMenu() {
     setListData();
   }
 
-  
-
-  // function handleInputEditName() {
-  //   if (listName !== "") {
-
-  //   };
-  // }
-
   return (
     <Styled.Container>
-      {/* <Styled.BtnoptionAddItem>
-        <img src={bottle} alt="icone de viho" />
-        <div>
-          <p>Não encontrou o que precisa?</p>
-          <button>Add item</button>
-        </div>
-      </Styled.BtnoptionAddItem> */}
       <Styled.HeaderModification>
         <h3> Shopping lista </h3>
       </Styled.HeaderModification>
@@ -244,7 +225,6 @@ export default function ListItemsMenu() {
                     <img
                       src={multiImg}
                       alt="mais"
-                      // onClick={() => toggleValueItem(true, item, )}
                       onClick={() => toggleValueItemFilter(true, item, true)}
                     />
                   </div>

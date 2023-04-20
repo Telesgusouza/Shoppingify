@@ -6,5 +6,7 @@ export default {
     seeProductMenu:"SEE_PRODUCT_MENU",
 
     togglwBoxPayment:"TOGGLEBOXPAYMENT",
-    infoProduct: "INFOPRODUCT"
+    infoProduct: "INFOPRODUCT",
+
+    toggleEditUser: "TOGGLE_EDIT_USER",
 }

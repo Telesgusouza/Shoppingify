@@ -67,31 +67,6 @@ export default function GetInfoProduct() {
                 </ul>
               </article>
             ))}
-
-          <article>
-            <h2>resp.category</h2>
-            <ul>
-                <li>
-                  <strong>respItem.product</strong>
-                  <p>4pc</p>
-                </li>
-
-                <li>
-                  <strong>respItem.product</strong>
-                  <p>4pc</p>
-                </li>
-
-                <li>
-                  <strong>respItem.product</strong>
-                  <p>4pc</p>
-                </li>
-
-                <li>
-                  <strong>respItem.product</strong>
-                  <p>4pc</p>
-                </li>
-            </ul>
-          </article>
         </Styled.SectionList>
       </Styled.ContainerContent>
 

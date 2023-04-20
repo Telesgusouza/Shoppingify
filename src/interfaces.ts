@@ -136,11 +136,21 @@ export interface IActionLateralMenu {
   payloadGetKey?: string;
 }
 
+export interface IPropsToggleEditUser {
+  toggle: boolean;
+}
+
+export interface IPropsActionToggleEditUser {
+  type: string;
+  payload: IPropsToggleEditUser;
+}
+
 export interface IPropsRootReducer {
   useShoppingCart: IPropsReducer;
   useToggleLateralMenu: IPropsLateralMenu;
   togglePaymentMethod: IPropsPayment;
   useInfoProduct: IPropsArrayData;
+  userEditUserToggle: IPropsToggleEditUser;
 }
 
 export interface IActionPayment {
@@ -171,11 +181,6 @@ export interface IPropsGetArrayData {
   date: string;
   listData: IPropsDataList[];
 }
-
-
-
-
-
 
 export interface IPropsData {
   product: string;

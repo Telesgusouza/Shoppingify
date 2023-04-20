@@ -5,7 +5,7 @@ interface IProps {
 }
 
 export const Container = styled.div<IProps>`
-  display: ${props => props.toggle ? "flex" : "none"};
+  display: ${(props) => (props.toggle ? "flex" : "none")};
   /* display: flex; */
 
   position: fixed;
@@ -28,7 +28,6 @@ export const Container = styled.div<IProps>`
 
 export const ContainerContent = styled.section`
   display: "none";
-
 
   background-color: white;
   padding: 25px 35px;
@@ -86,10 +85,15 @@ export const PaymentPix = styled.div`
     font-size: 1.4rem;
   }
 
+  strong {
+    padding-top: 5px;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
   img {
     width: 200px;
     object-fit: contain;
-    /* margin: 10px auto 30px auto; */
     margin: 0px auto;
   }
 
@@ -153,10 +157,17 @@ export const BankSlip = styled.div`
   }
 
   p {
-    margin-bottom: 30px;
+    margin-bottom: 5px;
+  }
+
+  strong {
+
+    font-weight: 700;
+    font-size: 13px;
   }
 
   form {
+    margin-top: 30px;
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 15px;

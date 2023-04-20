@@ -90,8 +90,8 @@ export default function PaymentMethod({ totalValue }: IPropsPaymentMethod) {
         {togglePaymentMethod ? (
           <Styled.PaymentPix>
             <h2>PIX</h2>
-            <p>Pague com pix</p>
-
+            <p>Pague com pix <br />   </p>
+            <strong> as compras não são reais, <br />nada sera cobrado</strong> 
             <img src={qrcodeImg} alt="qrcode" />
 
             <div>Ou</div>
@@ -104,7 +104,8 @@ export default function PaymentMethod({ totalValue }: IPropsPaymentMethod) {
         ) : (
           <Styled.BankSlip  >
             <h2>Boleto</h2>
-            <p>Pague suas compras com boleto </p>
+            <p>Pague suas compras com boleto <br /> </p>
+            <strong> as compras não são reais, <br />nada sera cobrado</strong> 
 
             <form onSubmit={(e) => handleTicket(e)}>
               <label htmlFor="name">

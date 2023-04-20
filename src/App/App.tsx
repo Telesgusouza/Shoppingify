@@ -8,6 +8,7 @@ import Logout from "../pages/Logout";
 import Payment from "../pages/Payment";
 import Statistcs from "../pages/Statistcs";
 import RouteWrapper from "../RouteWrapper";
+import EditUser from "../pages/EditUser/EditUser";
 
 function App() {
   useEffect(() => {
@@ -71,6 +72,14 @@ function App() {
           element={
             <RouteWrapper>
               <GetInfoProduct />
+            </RouteWrapper>
+          }
+        />
+        <Route
+          path="/infouser"
+          element={
+            <RouteWrapper>
+              <EditUser />
             </RouteWrapper>
           }
         />

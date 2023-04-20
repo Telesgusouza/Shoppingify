@@ -17,6 +17,7 @@ export const Container = styled.menu`
   }
 `;
 
+
 export const ContainerMenu = styled.div`
   position: fixed;
 
@@ -38,13 +39,19 @@ export const ContainerMenu = styled.div`
 `;
 
 export const FirstIcone = styled.img`
-  width: 50%;
-  max-width: 50px;
+  width: 45px; 
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+
   margin: 0 auto;
   margin-top: 24px;
 
+  cursor: pointer;
+
   @media (max-width: 500px) {
-    width: 70%;
+    width: 35px;
+    height: 35px;
   }
 `;
 
@@ -73,41 +80,6 @@ export const LiPages = styled.li<Props>`
 
   cursor: pointer;
 
-  &:hover {
-    div:nth-child(2) {
-      opacity: 1;
-    }
-  }
-
-  div:nth-child(2) {
-    opacity: 0;
-
-    position: absolute;
-    left: 85%;
-
-
-    padding: 3px 10px;
-    background-color: #454545;
-    color: white;
-
-    font-size: 0.82rem;
-
-    white-space: nowrap;
-
-    transition: opacity 0.2s ease;
-
-    &::after {
-      content: "";
-      position: absolute;
-      top: 5px;
-      left: -7px;
-
-      border: 5px solid #454545;
-
-      border-top: 5px solid transparent;
-      border-left: 5px solid transparent;
-    }
-  }
 
   img {
     width: 20px;
