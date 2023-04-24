@@ -109,7 +109,7 @@ export default function PaymentMethod({ totalValue }: IPropsPaymentMethod) {
 
             <form onSubmit={(e) => handleTicket(e)}>
               <label htmlFor="name">
-                Nome
+                <p>Nome </p>
                 <input
                   type="text"
                   placeholder="Nome"
@@ -119,7 +119,7 @@ export default function PaymentMethod({ totalValue }: IPropsPaymentMethod) {
               </label>
 
               <label htmlFor="email">
-                Email
+                <p>Email</p>
                 <input
                   type="email"
                   placeholder="Email"
@@ -129,7 +129,7 @@ export default function PaymentMethod({ totalValue }: IPropsPaymentMethod) {
               </label>
 
               <label htmlFor="endereço">
-                Endereço
+                <p>Endereço</p>
                 <input
                   type="text"
                   placeholder="Endereço"

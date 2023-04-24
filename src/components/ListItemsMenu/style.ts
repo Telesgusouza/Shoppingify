@@ -19,7 +19,13 @@ export const Container = styled.article`
   position: relative;
 
   @media (max-width: 730px) {
-    display: none;
+    /* display: none; */
+    /* width: 100%; */
+    max-width: 100%;
+
+    button {
+      background-color: red;
+    }
   }
 `;
 

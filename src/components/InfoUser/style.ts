@@ -7,6 +7,10 @@ export const Container = styled.section`
 
   border: 1px solid #e0e0e0;
   border-radius: 12px;
+
+  @media (max-width: 500px) {
+    max-width: 100%;
+  }
 `;
 
 export const HeaderUser = styled.div`
@@ -26,9 +30,17 @@ export const HeaderUser = styled.div`
     background-color: transparent;
     border-radius: 12px;
     border: 1px solid #828282;
-    
+
     color: #828282;
     cursor: pointer;
+  }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+
+    button {
+      margin-top: 10px;
+    }
   }
 `;
 
@@ -40,7 +52,8 @@ export const userInfo = styled.div`
 
   img {
     margin: 0;
-    width: 70px;
+    width: 100%;
+    max-width: 70px;
     height: 70px;
     object-fit: cover;
   }
@@ -66,5 +79,31 @@ export const userInfo = styled.div`
   div:nth-child(2) {
     text-align: left;
     padding: 7px 20px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  p {
+    width: 100%;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    margin: auto;
+  }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+
+    div:nth-child(2) {
+      width: 100%;
+    }
   }
 `;

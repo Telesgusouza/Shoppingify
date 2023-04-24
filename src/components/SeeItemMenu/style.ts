@@ -53,6 +53,14 @@ export const ListFields = styled.ul`
   grid-template-columns: 1fr;
   grid-gap: 20px;
 
+  min-height: 70vh;
+
+  div {
+    display: grid;
+    height: fit-content;
+    grid-gap: 20px;
+  }
+
   li {
     display: flex;
     flex-direction: column;
@@ -88,19 +96,19 @@ export const ContainerBtn = styled.div`
     background-color: transparent;
 
     font-size: 13px;
-    font-size: .84rem;
+    font-size: 0.84rem;
     font-weight: 700;
 
     cursor: pointer;
 
     &:nth-child(1) {
-        margin-right: 10px;
+      margin-right: 10px;
     }
 
     &:nth-child(2) {
-        background-color: #F9A109;
-        border-radius: 12px;
-        color: white;
+      background-color: #f9a109;
+      border-radius: 12px;
+      color: white;
     }
   }
 `;

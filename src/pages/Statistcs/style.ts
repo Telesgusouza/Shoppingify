@@ -11,13 +11,15 @@ export const Container = styled.div`
   justify-content: space-between;
 `;
 
-export const ContainerContent = styled.main`
+export const TextNoHistory = styled.div`
   width: 100%;
-  max-width: 650px;
-  height: fit-content;
-  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   strong {
+    text-align: center;
+    margin: 0 auto;
 
     font-size: 17px;
     font-weight: 700;
@@ -27,6 +29,13 @@ export const ContainerContent = styled.main`
     padding-bottom: 5px;
     border-bottom: 1px solid rgb(100, 100, 100);
   }
+`;
+
+export const ContainerContent = styled.main`
+  width: 100%;
+  max-width: 650px;
+  height: fit-content;
+  padding: 40px 20px;
 `;
 
 export const ContainerStatistics = styled.div`
@@ -105,6 +114,8 @@ export const Bar = styled.div<IProps>`
 `;
 
 export const Chart = styled.div<IProps>`
+  position: relative;
+  z-index: 7;
   width: 100%;
   height: fit-content;
 

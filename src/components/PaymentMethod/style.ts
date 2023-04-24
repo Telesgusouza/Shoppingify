@@ -6,19 +6,19 @@ interface IProps {
 
 export const Container = styled.div<IProps>`
   display: ${(props) => (props.toggle ? "flex" : "none")};
-  /* display: flex; */
 
-  position: fixed;
+  /* position: fixed; */
+  /* position: absolute; */
+  position: absolute;
   top: 0;
   left: 0;
 
-  /* display: flex; */
   justify-content: center;
   align-items: center;
 
   z-index: 50;
 
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
 
   padding: 40px 20px;
@@ -161,7 +161,6 @@ export const BankSlip = styled.div`
   }
 
   strong {
-
     font-weight: 700;
     font-size: 13px;
   }
@@ -176,8 +175,14 @@ export const BankSlip = styled.div`
   label {
     width: 100%;
     max-width: 250px;
+  
     display: flex;
     justify-content: space-between;
+
+    p {
+      min-width: 70px;
+      margin-right: 5px;
+    }
   }
 
   button {
@@ -194,6 +199,8 @@ export const BankSlip = styled.div`
 
   input {
     padding: 3px 10px;
+
+    width: 100%;
 
     &:focus {
       outline: 0;

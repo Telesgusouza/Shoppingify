@@ -64,24 +64,6 @@ export default function Menu({ page }: IPropsOptionMenus) {
     navigate(url, { replace: true });
   }
 
-  /*
-
-  o src está acusando o arro "Nenhuma sobrecarga corresponde a esta chamada.
-  A sobrecarga 1 de 2, '(props: { slot?: string | undefined; style?: CSSProperties | undefined; title?: string | undefined; ref?: ((instance: HTMLImageElement | null) => void) | RefObject<...> | null | undefined; ... 265 more ...; width?: string | ... 1 more ... | undefined; } & { ...; } & { ...; }): ReactElement<...>', gerou o seguinte erro.
-    O tipo 'string | DocumentData' não pode ser atribuído ao tipo 'string | undefined'.
-      O tipo 'DocumentData' não pode ser atribuído ao tipo 'string'.
-  A sobrecarga 2 de 2, '(props: StyledComponentPropsWithAs<"img", any, {}, never, "img", "img">): ReactElement<StyledComponentPropsWithAs<"img", any, {}, never, "img", "img">, string | JSXElementConstructor<...>>', gerou o seguinte erro.
-    O tipo 'string | DocumentData' não pode ser atribuído ao tipo 'string | undefined'.ts(2769)
-index.d.ts(2188, 9): O tipo esperado vem da propriedade 'src', que é declarada aqui no tipo 'IntrinsicAttributes & { slot?: string | undefined; style?: CSSProperties | undefined; title?: string | undefined; ref?: ((instance: HTMLImageElement | null) => void) | RefObject<...> | null | undefined; ... 265 more ...; width?: string | ... 1 more ... | undefined; } & { ...; } & { ...; }'
-index.d.ts(2188, 9): O tipo esperado vem da propriedade 'src', que é declarada aqui no tipo 'IntrinsicAttributes & { slot?: string | undefined; style?: CSSProperties | undefined; title?: string | undefined; ref?: ((instance: HTMLImageElement | null) => void) | RefObject<...> | null | undefined; ... 265 more ...; width?: string | ... 1 more ... | undefined; } & { ...; } & { ...; }'
-(property) src?: string | undefined" 
-photoUrl é um link e o icone um imagem do site
-          src={photoUrl !== null ? photoUrl: icone }
-
-
-
-*/
-
   return (
     <Styled.Container>
       <Styled.ContainerMenu>

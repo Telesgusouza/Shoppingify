@@ -118,24 +118,29 @@ export default function SeeItemMenu() {
       {Object.keys(product).length > 1 && (
         <>
           <Styled.ListFields>
-            <li>
-              <span>Nome</span>
-              <strong>{product.product}</strong>
-            </li>
+            <div>
+              <li>
+                <span>Nome</span>
+                <strong>{product.product}</strong>
+              </li>
 
-            <li>
-              <span>Categoria</span>
-              <p>{category}</p>
-            </li>
+              <li>
+                <span>Categoria</span>
+                <p>{category}</p>
+              </li>
+            </div>
 
-            <li>
-              <span>Nota</span>
-              <p>{product.description}</p>
-            </li>
-            <li>
-              <span>valor (unidade ou kg)</span>
-              <p> R$ {valueProd} </p>
-            </li>
+            <div>
+              <li>
+                <span>Nota</span>
+                <p>{product.description}</p>
+              </li>
+
+              <li>
+                <span>valor (unidade ou kg)</span>
+                <p> R$ {valueProd} </p>
+              </li>
+            </div>
           </Styled.ListFields>
 
           <Styled.ContainerBtn>

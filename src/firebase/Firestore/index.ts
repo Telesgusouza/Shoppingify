@@ -34,11 +34,13 @@ export async function getDataProducts() {
   const listProducts: { category: string; listData: IPropsDataProduct[] }[] =
     [];
 
+
   for (const element of CateSnap.docChanges()) {
     const commodityCategory = element.doc.data().category;
     const docRef = collection(db, `/listProducts/list/${commodityCategory}`);
     const docSnap = await getDocs(docRef);
     let listData: IPropsDataProduct[] = [];
+
 
     docSnap.docChanges().forEach((element: DocumentData) => {
       const getFields = element.doc.data();

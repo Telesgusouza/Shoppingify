@@ -37,8 +37,6 @@ export default function History() {
     navigate("/InfoProduct/" + info.key);
   }
 
-  console.log(listData.length === 0);
-
   return (
     <Styled.Container>
       <Menu page="history" />
@@ -47,7 +45,9 @@ export default function History() {
         <h1>Shoppinging Histórico</h1>
 
         {listData.length === 0 && (
-          <h2>Histórico vazio...</h2>
+          <Styled.TextNoHistory>
+            <strong>Histórico vazio...</strong>
+          </Styled.TextNoHistory>
         )}
 
         <ul>

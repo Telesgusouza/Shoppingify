@@ -5,6 +5,8 @@ export const Container = styled.div`
   justify-content: space-between;
 `;
 
+
+
 export const ContainerContent = styled.main`
   width: 100%;
   max-width: 700px;
@@ -103,5 +105,26 @@ export const LiInfo = styled.div`
     border: 1px solid #56ccf2;
     border-radius: 8px;
     padding: 4px 7px;
+  }
+`;
+
+
+export const TextNoHistory = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  strong {
+    text-align: center;
+    margin: 0 auto;
+
+    font-size: 18px;
+    font-weight: 700;
+    color: rgb(100, 100, 100);
+    margin-bottom: 50px;
+
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(100, 100, 100);
   }
 `;

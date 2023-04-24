@@ -24,6 +24,8 @@ export const ButtonBack = styled.button`
   font-size: 0.9rem;
   color: #f9a109;
 
+  cursor: pointer;
+
   img {
     width: 15px;
     height: fit-content;

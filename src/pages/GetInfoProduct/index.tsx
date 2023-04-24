@@ -6,7 +6,7 @@ import LateralMenu from "../../components/LateralMenu";
 
 import imgBack from "../../assets/icons/arrow.svg";
 import dateImg from "../../assets/icons/dateDark.svg";
-import { Params, useParams } from "react-router-dom";
+import { Params, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProductList } from "../../firebase/Firestore";
 
@@ -16,6 +16,8 @@ export default function GetInfoProduct() {
   );
 
   const { key }: Readonly<Params<string>> = useParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getListProducts() {
@@ -28,13 +30,16 @@ export default function GetInfoProduct() {
     getListProducts();
   }, []);
 
+  function handlePageHistory() {
+    navigate("/history")
+  }
 
   return (
     <Styled.Container>
       <Menu page="" />
 
       <Styled.ContainerContent>
-        <Styled.ButtonBack>
+        <Styled.ButtonBack onClick={handlePageHistory} >
           <img src={imgBack} alt="Botão de voltar" />
           Voltar
         </Styled.ButtonBack>

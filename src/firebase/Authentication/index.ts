@@ -85,11 +85,11 @@ export function register(
     });
 }
 
-export function loginSocialMidia(props: "facebook" | "google") {
+export async function loginSocialMidia(props: "facebook" | "google") {
   if (props === "facebook") {
     const provider = new FacebookAuthProvider();
 
-    signInWithPopup(auth, provider)
+    await signInWithPopup(auth, provider)
       .then(async (resp) => {
         const getData = await getDoc(doc(db, `dataUser/${resp.user.uid}`));
         if (getData.data() === undefined) {
@@ -98,9 +98,16 @@ export function loginSocialMidia(props: "facebook" | "google") {
             email: resp.user.email,
           });
         }
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       })
       .catch((err) => {
         console.error("error login facebook >>> " + err);
+        toast.error(
+          "Erro ao logar com facebook, tente mais tarde ou se conecte com o google"
+        );
       });
   }
 
@@ -116,6 +123,10 @@ export function loginSocialMidia(props: "facebook" | "google") {
             email: resp.user.email,
           });
         }
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       })
       .catch((err) => {
         console.error("error login google >>> " + err);

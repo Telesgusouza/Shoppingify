@@ -4,7 +4,7 @@ import { DocumentData } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 
 import * as Styled from "./style";
-import actionsType from '../../actions';
+import actionsType from "../../actions";
 
 import imgNoUser from "../../assets/noUser.png";
 
@@ -28,7 +28,7 @@ export default function InfoUser() {
   function handleEdit() {
     dispatch({
       type: actionsType.toggleEditUser,
-      payload: false
+      payload: false,
     });
   }
 
@@ -36,9 +36,9 @@ export default function InfoUser() {
     <Styled.Container>
       <Styled.HeaderUser>
         <h2>Perfil</h2>
-        <button onClick={handleEdit} >Edit</button>
+        <button onClick={handleEdit}>Edit</button>
       </Styled.HeaderUser>
-
+      
       <Styled.userInfo>
         <div>
           <strong>FOTO</strong>
@@ -62,7 +62,7 @@ export default function InfoUser() {
         <div>
           <strong>EMAIL</strong>
         </div>
-        <div>{dataUser ? dataUser.email : "carregando"}</div>
+        <div> <p> {dataUser ? dataUser.email : "carregando"}</p> </div>
       </Styled.userInfo>
     </Styled.Container>
   );
